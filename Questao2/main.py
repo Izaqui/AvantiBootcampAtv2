@@ -25,10 +25,14 @@ newImg = np.zeros([heigth, width])
 for i in range(1, heigth-1):
     for j in range(1, width-1):
         temp = imagem[i-1, j-1]*mask[0, 0]+imagem[i-1, j]*mask[0, 1]+imagem[i-1, j + 1]*mask[0, 2]+imagem[i, j-1]*mask[1, 0]+ imagem[i, j]*mask[1, 1]+imagem[i, j + 1]*mask[1, 2]+imagem[i + 1, j-1]*mask[2, 0]+imagem[i + 1, j]*mask[2, 1]+imagem[i + 1, j + 1]*mask[2, 2]
-        #newImg[i, j] = temp
+        newImg[i, j] = temp
 
 newImg = newImg.astype(np.uint8)
 #cv2.imwrite('Filtro de Media', newImg)   
+R, G, B = newImg[:, :, 0], newImg[:, :, 1], newImg[:, :, 2]
+newImg = 0.2989 * R + 0.5870 * G + 0.1140 * B
+plt.imshow(newImg, cmap="gray")
+plt.show()
 
 #mediana
 medianaImag = cv2.medianBlur(imagem, 5)
@@ -44,8 +48,7 @@ imgGrayGaussian = 0.2989 * R + 0.5870 * G + 0.1140 * B
 plt.imshow(imgGrayGaussian, cmap="gray")
 plt.show()
 
-print(f'mediana {imgGlauci}')
-print(f'Gaussina {imgGlauci}')
+
 
 
 
